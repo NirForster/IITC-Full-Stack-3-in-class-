@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button id="myButton">Click Me</button>
+
+    <input
+      type="text"
+      id="textInput"
+      placeholder="Type here..."
+    />
+
+    <script>
+      const myBtn = document.getElementById("myButton");
+
+      myBtn.addEventListener("click", function () {
+        console.log("Button was clicked!");
+      });
+      // Logs "Button was clicked!" to the console when the button is clicked
+
+      const myInput = document.getElementById("textInput");
+
+      myInput.addEventListener("input", function (event) {
+        console.log("You typed: " + event.target.value);
+      });
+      // Outputs the current value of the input field as the user types
+    </script>
+  </body>
+</html>

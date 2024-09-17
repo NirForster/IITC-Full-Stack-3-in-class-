@@ -21,6 +21,15 @@
       button.addEventListener("click", handleIncrement); // add the callback
 
       // After 3 clicks, the button stops logging "Button clicked!" to the console
+
+      // WILL NOT WORK! 👇🏼
+      button.addEventListener("click", function () {
+        alert("You can't remove me!");
+      });
+
+      button.removeEventListener("click", function () {
+        alert("You can't remove me!");
+      });
     </script>
   </body>
 </html>

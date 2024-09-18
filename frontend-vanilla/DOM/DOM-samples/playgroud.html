@@ -2,11 +2,47 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>baba</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Link the JavaScript file correctly using the script tag -->
+    <script src="index.js" defer></script>
   </head>
-  <body></body>
+  <style>
+    .backgroundColor_lightBlue {
+      background-color: lightblue;
+    }
+    .color_red {
+      color: red;
+    }
+    .backgroundColor_yellow {
+      background-color: yellow;
+    }
+    .backgroundColor_green {
+      background-color: green;
+    }
+    .selected {
+      font-weight: bold;
+    }
+  </style>
+  <body>
+    <div id="content">
+      <p class="text">1</p>
+      <p class="text">2</p>
+      <p class="text">3</p>
+    </div>
+    <ul id="list">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+    <button>Highlight list items</button>
+    <button id="addItem">Add Item</button>
+    <button id="removeFirst">Remove First Item</button>
+    <button id="removeLast">Remove Last Item</button>
+    <button id="removeSelected">Remove Selected Item</button>
+    <ul class="ul"></ul>
+  </body>
 </html>

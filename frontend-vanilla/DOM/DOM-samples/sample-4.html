@@ -11,18 +11,24 @@
 
     <script>
       const myBtn = document.getElementById("myButton");
+      let inputValue = "";
 
-      myBtn.addEventListener("click", function () {
-        console.log("Button was clicked!");
+      myBtn.addEventListener("click", function (ev) {
+        if (ev.shiftKey) {
+          alert(inputValue);
+        } else {
+          console.log("Button was clicked!");
+        }
       });
-      // Logs "Button was clicked!" to the console when the button is clicked
+
+      // -------------------------------------------------------------//
 
       const myInput = document.getElementById("textInput");
 
-      myInput.addEventListener("input", function (event) {
-        console.log("You typed: " + event.target.value);
+      myInput.addEventListener("input", function (ev) {
+        console.log("event:  ", ev);
+        inputValue = ev.target.value;
       });
-      // Outputs the current value of the input field as the user types
     </script>
   </body>
 </html>

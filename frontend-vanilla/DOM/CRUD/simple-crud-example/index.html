@@ -18,6 +18,31 @@
     <h2>Student List:</h2>
     <ul id="studentList"></ul>
 
+    <h2>Create Student</h2>
+    <form>
+      <div>
+        <label for="name">Name:</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter your name"
+        />
+      </div>
+
+      <div>
+        <label for="grade">Grade:</label>
+        <input
+          id="grade"
+          type="number"
+          placeholder="Enter a grade"
+          min="0"
+          max="100"
+        />
+      </div>
+
+      <button>Create</button>
+    </form>
+
     <script src="index.js"></script>
   </body>
 </html>

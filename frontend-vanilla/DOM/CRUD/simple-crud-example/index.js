@@ -1,9 +1,10 @@
-// model (data)
+// Model (data)
 let gStudents = [
   {
     id: makeId(),
     fullName: "baba netanyahu",
     avgGrade: 77,
+    isDone: false,
   },
   {
     id: makeId(),
@@ -16,6 +17,15 @@ let gStudents = [
     avgGrade: 44,
   },
 ];
+
+const elForm = document.querySelector("form");
+elForm.addEventListener("submit", function (ev) {
+  ev.preventDefault();
+  const nameValue = elForm.querySelector("#name").value;
+  const gradeValue = parseInt(elForm.querySelector("#grade").value);
+
+  createStudent(nameValue, gradeValue);
+});
 
 function makeId() {
   let id = "";
@@ -34,7 +44,7 @@ function renderStudentList() {
   for (let i = 0; i < gStudents.length; i++) {
     const student = gStudents[i];
     const elStudent = document.createElement("li");
-    elStudent.setAttribute("id", student.id + "-el");
+    elStudent.setAttribute("id", "el-" + student.id);
 
     elStudent.innerHTML = `
       <div>${student.fullName}</div>
@@ -44,6 +54,20 @@ function renderStudentList() {
 
     elStudentList.appendChild(elStudent);
   }
+}
+
+// CREATE
+function createStudent(name, grade) {
+  const newStudent = {
+    id: makeId(),
+    fullName: name,
+    avgGrade: grade,
+  };
+
+  gStudents.push(newStudent);
+  const elStudentList = document.getElementById("studentList");
+  elStudentList.innerHTML = "";
+  renderStudentList();
 }
 
 // DELETE
@@ -62,7 +86,7 @@ function deleteStudent(studentId) {
 
   const elStudentList = document.getElementById("studentList");
 
-  const elStudentToDelete = elStudentList.querySelector(`#${studentId}-el`);
+  const elStudentToDelete = elStudentList.querySelector("#el-" + studentId);
   elStudentList.removeChild(elStudentToDelete);
 }
 

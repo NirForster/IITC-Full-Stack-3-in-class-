@@ -1,35 +1,12 @@
-function makeId() {
-  let id = "";
-  const possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  for (let i = 0; i < 5; i++) {
-    id += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return id;
-}
+const TODOS_STORAGE_KEY = "todos";
 
-// Dummy data for development (Model)
-let gTodos = [
-  {
-    id: makeId(),
-    title: "Clean room",
-    isCompleted: false,
-  },
-  {
-    id: makeId(),
-    title: "do dishes",
-    isCompleted: true,
-  },
-  {
-    id: makeId(),
-    title: "feed the cat",
-    isCompleted: false,
-  },
-];
+// State
+let gTodos = getTodos(); // Model
+let gFilter = "all";
 
 // DOM elmemets
-const elTodoList = document.getElementById("todo-list");
 const elTodoForm = document.getElementById("todo-form");
+const elFilterBtns = document.querySelectorAll("#filter-buttons button");
 
 // Handling event listeners
 elTodoForm.addEventListener("submit", function (ev) {
@@ -46,14 +23,34 @@ elTodoForm.addEventListener("submit", function (ev) {
   elTodoInput.value = "";
 });
 
+// Handling event listeners
+elFilterBtns.forEach((currentBtn) =>
+  currentBtn.addEventListener("click", handleFilterChange)
+);
+
+function handleFilterChange(ev) {
+  gFilter = ev.target.textContent.toLowerCase();
+  renderTodos();
+}
+
 // Render the todos
 function renderTodos() {
+  const elTodoList = document.getElementById("todo-list");
+
   // Clearing the list
   elTodoList.innerHTML = "";
 
+  let filterTodos = [...gTodos];
+
+  if (gFilter === "active") {
+    filterTodos = gTodos.filter((currentTodo) => !currentTodo.isCompleted);
+  } else if (gFilter === "completed") {
+    filterTodos = gTodos.filter((currentTodo) => currentTodo.isCompleted);
+  }
+
   // Append each li to the list
-  for (let i = 0; i < gTodos.length; i++) {
-    const currentTodo = gTodos[i];
+  for (let i = 0; i < filterTodos.length; i++) {
+    const currentTodo = filterTodos[i];
 
     // Creating todo element
     const elTodo = document.createElement("li");
@@ -96,12 +93,14 @@ function addTodo(todoTitle) {
   gTodos.push(todo);
 
   // Call renderTodos function
+  saveTodos();
   renderTodos();
 }
 
 // Delete todo
 function deleteTodo(id) {
   gTodos = gTodos.filter((currentTodo) => currentTodo.id !== id);
+  saveTodos();
   renderTodos();
 }
 
@@ -115,7 +114,31 @@ function toggleTodo(id) {
   todo.isCompleted = !todo.isCompleted;
 
   // Render todos
+  saveTodos();
   renderTodos();
+}
+
+// UTIL FUNCTION
+function makeId() {
+  let id = "";
+  const possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < 5; i++) {
+    id += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return id;
+}
+
+// HELPER FUNCTION
+function getTodos() {
+  let todos = JSON.parse(localStorage.getItem(TODOS_STORAGE_KEY));
+  if (!todos) todos = [];
+  return todos;
+}
+
+// HELPER FUNCTION
+function saveTodos() {
+  localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(gTodos));
 }
 
 renderTodos();

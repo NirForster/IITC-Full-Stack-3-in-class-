@@ -73,3 +73,66 @@ remove_Selected_Item.addEventListener("click", function () {
 });
 
 //third TASK
+//usong event listener for tracking the input with log
+const input = document.getElementById("nameInput");
+input.addEventListener("input", function () {
+  console.log(input.value);
+});
+
+// callback function that updates the greeting div to display "Hello, [name]!" where [name] is the current value of the input field.
+const greetingElem = document.getElementById("greeting");
+function greeting(input) {
+  input.addEventListener("keydown", function (ev) {
+    if (ev.key === "Enter") {
+      let name = input.value;
+      greetingElem.innerText = `Hello ${name}!`;
+    }
+  });
+}
+greeting(input);
+
+// Create a button with the text "Clear" that, when clicked, clears the input field and resets the greeting.
+const clearInputButtonEl = document.getElementById("clearInputButton");
+clearInputButtonEl.addEventListener("click", function () {
+  greetingElem.innerText = "";
+  input.value = "";
+});
+
+// TASK 4
+// Use JavaScript to give the box a default style: width of 100px, height of 100px, and a border.
+const box = document.querySelector("#box");
+const styleButton = document.getElementById("styleButton");
+box.style.width = "100px";
+box.style.height = "100px";
+box.style.border = "2px solid black";
+box.style.boxSizing = "border-box";
+
+function getRandomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+styleButton.addEventListener("click", function () {
+  let width = parseInt(box.style.width);
+  let height = parseInt(box.style.height);
+
+  width = Math.min(width * 2, 300);
+  height = Math.min(height * 2, 300);
+
+  box.style.width = `${width}px`;
+  box.style.height = `${height}px`;
+  box.style.borderColor = getRandomColor();
+});
+
+// TASK 5
+const buttons = document.querySelectorAll(".clickMe");
+
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", function () {
+    alert(i + 1);
+  });
+}

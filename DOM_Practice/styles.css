@@ -1,0 +1,15 @@
+.backgroundColor_lightBlue {
+  background-color: lightblue;
+}
+.color_red {
+  color: red;
+}
+.backgroundColor_yellow {
+  background-color: yellow;
+}
+.backgroundColor_green {
+  background-color: green;
+}
+.selected {
+  font-weight: bold;
+}
